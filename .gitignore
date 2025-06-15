@@ -1,0 +1,16 @@
+# Ignorar configuraciones de IDE JetBrains
+.idea/
+*.iml
+
+# Ignorar binarios y ejecutables de C/C++
+*.exe
+*.out
+*.o
+*.obj
+
+# Ignorar archivos temporales de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar otros temporales
+*.log
