@@ -27,20 +27,40 @@ void leerDatos(int n, float x[], float y[], float riesgo[]) {
         printf("\nPunto %d/%d:\n", i + 1, n);
 
         // Ingreso de la coordenada X
-        printf("Ingrese coordenada X: ");
-        scanf("%f", &x[i]);
+        while (1) {
+            printf("Ingrese coordenada X: ");
+            if (scanf("%f", &x[i]) == 1)
+                break;
+            else {
+                printf("Entrada invalida. Por favor ingrese un numero valido.\n");
+                while(getchar() != '\n'); // limpiar buffer
+            }
+        }
 
         // Ingreso de la coordenada Y
-        printf("Ingrese coordenada Y: ");
-        scanf("%f", &y[i]);
+        while (1) {
+            printf("Ingrese coordenada Y: ");
+            if (scanf("%f", &y[i]) == 1)
+                break;
+            else {
+                printf("Entrada invalida. Por favor ingrese un número valido.\n");
+                while(getchar() != '\n');
+            }
+        }
 
         // Ingreso validado del nivel de riesgo (1 a 10)
-        do {
-            printf("Ingrese el nivel de riesgo (1 a 10): ");    // Pide ingresar el riesgo
-            scanf("%f", &riesgo[i]);                              // Lee el valor del riesgo
-            if (riesgo[i] < 1 || riesgo[i] > 10)
-                printf("Valor no valido. Debe estar entre 1 y 10.\n");   // Mensaje si está fuera de rango
-        } while (riesgo[i] < 1 || riesgo[i] > 10);                // Repite si el riesgo está fuera de rango
+        while (1) {
+            printf("Ingrese el nivel de riesgo (1 a 10): ");
+            if (scanf("%f", &riesgo[i]) == 1) {
+                if (riesgo[i] >= 1 && riesgo[i] <= 10)
+                    break;
+                else
+                    printf("Valor no valido. Debe estar entre 1 y 10.\n");
+            } else {
+                printf("Entrada invalida. Por favor ingrese un número valido.\n");
+                while(getchar() != '\n');
+            }
+        }
     }
     printf("\nDatos ingresados correctamente\n\n");
 }
@@ -200,22 +220,28 @@ int main() {
     // riesgoPromedio[j]: riesgo promedio del cluster j
 
     // Solicita y valida la cantidad de puntos a procesar
-    do {
-        printf("Ingrese la cantidad de puntos (max %d): ", MAX_POINTS); // Mensaje para ingresar n
-        scanf("%d", &n); // Lee el valor ingresado en n
-        if (n < 1 || n > MAX_POINTS)
-            printf("  [!] Valor no válido. Debe ser entre 1 y %d.\n", MAX_POINTS); // Mensaje si n es inválido
-    } while (n < 1 || n > MAX_POINTS); // Repite si n es fuera de rango
+    while (1) {
+        printf("Ingrese la cantidad de puntos (max %d): ", MAX_POINTS);
+        if (scanf("%d", &n) == 1 && n >= 1 && n <= MAX_POINTS)
+            break;
+        else {
+            printf("Valor no valido. Debe ser entre 1 y %d.\n", MAX_POINTS);
+            while(getchar() != '\n'); // Limpiar buffer
+        }
+    }
 
     leerDatos(n, x, y, riesgo); // Solicita ingresar las coordenadas y riesgo de cada punto
 
     // Solicita y valida la cantidad de clusters/zones (K)
-    do {
-        printf("Ingrese el valor de K (zonas): "); // Mensaje para ingresar K
-        scanf("%d", &k); // Lee el valor de K
-        if (k < 1 || k > n)
-            printf("  [!] K debe ser al menos 1 y no mayor que la cantidad de puntos (%d).\n", n); // Mensaje si K es inválido
-    } while (k < 1 || k > n); // Repite si K es fuera de rango
+    while (1) {
+        printf("Ingrese el valor de K (zonas): ");
+        if (scanf("%d", &k) == 1 && k >= 1 && k <= n)
+            break;
+        else {
+            printf("K debe ser al menos 1 y no mayor que la cantidad de puntos (%d).\n", n);
+            while(getchar() != '\n');
+        }
+    }
 
     inicializarCentroides(k, n, x, y, centroideX, centroideY); // Inicializa los centroides aleatoriamente con datos existentes
 
